@@ -1,0 +1,15 @@
+# before: txcript 0.14.4, codex-cli 0.167.0, Ollama qwen3-4b-local, 2026-11-07T13:18:57Z
+$ cat ~/.codex/config.toml | head -2
+model = "qwen3-4b-local:latest"
+model_provider = "ollama-local"
+
+$ /tmp/txcript/target/release/txcript continue f042f3ff --with codex --no-resume
+claude_code → codex  /tmp/txrun-before/.codex/sessions/2026/11/07/rollout-2026-11-07T13-18-57-01a1b629-8768-7931-bc3f-68776062a6d3.jsonl
+  resume with: codex resume 01a1b629-8768-7931-bc3f-68776062a6d3
+
+$ head -1 <rollout> | grep -o model_provider...
+"model_provider":"openai"
+
+$ timeout 600 /tmp/codexbin/node_modules/.bin/codex exec --skip-git-repo-check -s read-only resume 01a1b629-8768-7931-bc3f-68776062a6d3 Without calling any tools: what label and style did you give the button earlier in this conversation? One line.
+Error: thread/resume: thread/resume failed: This chat uses openai, but your current provider is ollama-local. Switch to openai to continue. (code -32600), data: {"type":"modelProviderMismatch","modelProvider":"openai","currentModelProvider":"ollama-local"}
+

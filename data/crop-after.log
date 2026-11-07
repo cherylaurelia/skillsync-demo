@@ -1,0 +1,52 @@
+# crop-after: native Codex session on ollama-local, then a txcript copy of its first 2 messages
+$ timeout 600 /tmp/codexbin/node_modules/.bin/codex exec --skip-git-repo-check -s read-only Remember this word: heron. Reply with exactly: noted
+Reading additional input from stdin...
+OpenAI Codex v0.167.0
+--------
+workdir: /private/tmp/bench
+model: qwen3-4b-local:latest
+provider: ollama-local
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 01a1b63e-d6b8-72d0-bfa6-e599528c8f52
+--------
+user
+Remember this word: heron. Reply with exactly: noted
+warning: Model metadata for `qwen3-4b-local:latest` not found. Defaulting to fallback metadata; this can degrade performance and cause issues.
+codex
+noted
+tokens used
+667
+noted
+
+native 01a1b63e-d6b8-72d0-bfa6-e599528c8f52: "model_provider":"ollama-local"
+
+$ /tmp/txfix-bin continue 01a1b63e-d6b8-72d0-bfa6-e599528c8f52#1-2 --no-resume
+codex → codex  /tmp/txrun-after/.codex/sessions/2026/11/07/rollout-2026-11-07T13-42-15-01a1b63e-dadb-77d0-bf2a-35eb8797127c.jsonl
+  resume with: codex resume 01a1b63e-dadb-77d0-bf2a-35eb8797127c
+
+copy 01a1b63e-dadb-77d0-bf2a-35eb8797127c: "model_provider":"ollama-local"
+
+$ timeout 600 /tmp/codexbin/node_modules/.bin/codex exec --skip-git-repo-check -s read-only resume 01a1b63e-dadb-77d0-bf2a-35eb8797127c What word did I ask you to remember? One word.
+OpenAI Codex v0.167.0
+--------
+workdir: /private/tmp/bench
+model: qwen3-4b-local:latest
+provider: ollama-local
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 01a1b63e-dadb-77d0-bf2a-35eb8797127c
+--------
+user
+What word did I ask you to remember? One word.
+warning: Model metadata for `qwen3-4b-local:latest` not found. Defaulting to fallback metadata; this can degrade performance and cause issues.
+codex
+heron
+tokens used
+691
+heron
+

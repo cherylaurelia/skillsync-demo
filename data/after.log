@@ -1,0 +1,33 @@
+# after: txcript 0.14.4, codex-cli 0.167.0, Ollama qwen3-4b-local, 2026-11-07T13:42:02Z
+$ cat ~/.codex/config.toml | head -2
+model = "qwen3-4b-local:latest"
+model_provider = "ollama-local"
+
+$ /tmp/txfix-bin continue f042f3ff --with codex --no-resume
+claude_code → codex  /tmp/txrun-after/.codex/sessions/2026/11/07/rollout-2026-11-07T13-42-02-01a1b63e-aaa2-74a1-b1d7-e9f74422c2a2.jsonl
+  resume with: codex resume 01a1b63e-aaa2-74a1-b1d7-e9f74422c2a2
+
+$ head -1 <rollout> | grep -o model_provider...
+"model_provider":"ollama-local"
+
+$ timeout 600 /tmp/codexbin/node_modules/.bin/codex exec --skip-git-repo-check -s read-only resume 01a1b63e-aaa2-74a1-b1d7-e9f74422c2a2 Without calling any tools: what label and style did you give the button earlier in this conversation? One line.
+OpenAI Codex v0.167.0
+--------
+workdir: /private/tmp/bench
+model: qwen3-4b-local:latest
+provider: ollama-local
+approval: never
+sandbox: read-only
+reasoning effort: none
+reasoning summaries: none
+session id: 01a1b63e-aaa2-74a1-b1d7-e9f74422c2a2
+--------
+user
+Without calling any tools: what label and style did you give the button earlier in this conversation? One line.
+warning: Model metadata for `qwen3-4b-local:latest` not found. Defaulting to fallback metadata; this can degrade performance and cause issues.
+codex
+Label: Cancel, Style: ghost
+tokens used
+10,046
+Label: Cancel, Style: ghost
+
